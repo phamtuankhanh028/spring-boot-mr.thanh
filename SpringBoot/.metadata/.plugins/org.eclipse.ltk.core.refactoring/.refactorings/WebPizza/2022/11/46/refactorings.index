@@ -1,0 +1,4 @@
+1667733552234	Encapsulate field 'categoryRepository'
+1667734583296	Pull up members to 'ICategoryService'
+1667899285623	Delete element
+1667979310930	Pull up members to 'ICategoryService'

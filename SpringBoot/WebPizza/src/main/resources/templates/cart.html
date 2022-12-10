@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout.html}">
+<head>
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- ---------------xx-------------- -->
+		<section class="page-heading">
+			<div class="content">
+				<h2>Giỏ hàng</h2>
+				<span> <i class="fas fa-home"></i> <a href="index.html">Trang
+						chủ</a> <i class="fas fa-angle-right"></i> <a href="cart.html">Giỏ
+						hàng</a>
+				</span>
+			</div>
+		</section>
+		<!-- ====   Cart    ==== -->
+
+		<section class="cart-page">
+			<div class="cart-page-heading">
+				<div class="cart-product">
+					<p>Sản phẩm</p>
+				</div>
+				<div class="cart-price">
+					<p>Đơn giá</p>
+				</div>
+				<div class="cart-quantity">
+					<p>Số lượng</p>
+				</div>
+				<div class="cart-total">
+					<p>Số tiền</p>
+				</div>
+				<div class="cart-quantity">
+					<p>Thao tác</p>
+				</div>
+			</div>
+
+
+			<div class="cart-page-content">
+			<table>
+				<div class="row" th:each="item: ${items}">
+					<form th:action="@{/shopping-cart/update}">
+						<input type="hidden" name="maSP" th:value="${item.maSP}" />
+						<div class="cart-product">
+							<span> <img th:src="@{'/images/'+${item.hinhAnh}}" alt="">
+								<p>[[${item.tenSP}]]</p>
+							</span>
+						</div>
+						<div class="cart-price">
+							<p>[[${nf.format(item.donGia)}]]₫</p>
+						</div>
+						<div class="cart-quantity">
+							<input type="number" name="soLuong" min="1" th:max="${item.soLuong}" th:value="${item.soLuongMua}">
+						</div>
+						<div class="cart-total">
+							<p>[[${nf.format(item.donGia*item.soLuongMua)}]]₫</p>
+						</div>
+						<div class="cart-quantity">
+							<div class="cart-footer">
+								<a class="btn btn-secondary"
+									th:href="@{'/shopping-cart/delete/'+${item.maSP}}">Delete</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</table>
+			</div>
+
+
+			<div class="cart-footer">
+				<a class="btn btn-secondary" th:href="@{/shopping-cart/clear}">Xoá
+					tất cả</a>
+				<h3>
+					Tổng thanh toán: <span>[[${tongTien}]]₫</span>
+				</h3>
+				<a th:if="${session.userLogin}" th:href="@{/order}" class="btn btn-primary">Đặt hàng</a>
+				<a th:unless="${session.userLogin}" th:href="@{/user/login}" class="btn btn-primary">Đặt hàng</a>
+			</div>
+		</section>
+		<!-- --------xx--------- -->
+	</div>
+</body>
+</html>

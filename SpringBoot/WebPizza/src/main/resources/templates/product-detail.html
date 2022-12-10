@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout.html}">
+<head>
+
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<!-- ---------------xx-------------- -->
+		<section class="page-heading">
+			<div class="content">
+				<h2>Chi tiết sản phẩm</h2>
+
+			</div>
+		</section>
+		<!-- ====   Cart    ==== -->
+		<section class="detail-page">
+			<form th:action="@{/shopping-cart/addByDetail}">
+				<input type="hidden" name="maSP" th:value="${product.maSP}" />
+				<div class="box">
+					<div class="image-box">
+						<img th:src="@{'/images/'+${product.hinhAnh}}">
+					</div>
+					<div class="content">
+						<h2 th:text="${product.tenSP}"></h2>
+						<p class="price">
+							Giá: <span>[[${nf.format(product.donGia)}]]đ /
+								[[${product.donViTinh}]]</span>
+						</p>
+						<div class="star">
+							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star-half-alt"></i>
+						</div>
+						<div class="quantity">
+							<input type="number" name="soLuongMua" min="1" th:max="${product.soLuong}" value="1">
+							<p>[[${product.soLuong}]] Sản phẩm có sẵn</p>
+						</div>
+						<div class="card-btn">
+							<button class="btn btn-secondary" type="submit">
+								<i class="fas fa-shopping-bag"></i>Thêm vào giỏ hàng
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="box">
+				<div class="description">
+					<h2>Mô tả sản phẩm</h2>
+					<p>
+						&emsp; &emsp;Phần nhân bánh được chế biến từ thịt cừu chăn nuôi
+						ngoài đồng, loại thịt nạc vai chứa 2/3 lượng mỡ ít hơn thịt cừu
+						nuôi siêu thịt. Để thịt ngon hơn thì nên xay nó nhỏ hơn trước khi
+						chế biến. Thịt sau khi xay được tẩm ướp vadouvan, loại gia vị hỗn
+						hợp của Ấn Độ được sử dụng nhiều trong việc tẩm ướp thịt nướng.
+						Gia vị này kết hợp từ bột cà ri, thêm tỏi, hành khô. <br>&emsp;
+						&emsp;Cuối cùng, một ít nước sốt ya-ua vị bạc hà, ít vị ngọt của
+						ớt đỏ nướng và vị đắng của radicchio ở xung quanh sẽ đem đến một
+						bánh burger đầy mùi vị.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- --------xx--------- -->
+	</div>
+</body>
+</html>

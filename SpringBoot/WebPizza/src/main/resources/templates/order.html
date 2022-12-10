@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout.html}">
+<head>
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- ---------------xx-------------- -->
+		<section class="page-heading">
+			<div class="content">
+				<h2>Đặt hàng</h2>
+				<span> <i class="fas fa-home"></i> <a href="index.html">Trang
+						chủ</a> <i class="fas fa-angle-right"></i> <a href="cart.html">Giỏ
+						hàng</a> <i class="fas fa-angle-right"></i> <a href="order.html">Đặt
+						hàng</a>
+				</span>
+			</div>
+		</section>
+		<!-- ====   Order    ==== -->
+		<section class="order-page">
+			<form th:action="@{order/add}" th:method="post">
+				<div class="order-page-content">
+					<div class="customer-info">
+						<div class="heading">
+							<h3>Thông tin đặt hàng</h3>
+						</div>
+						<div class="content">
+
+							<input type="hidden" name="id" th:value="${session.userLogin.maKH}">
+							<div class="form-group">
+								<label for="">Tên người đặt hàng</label> <input type="text"
+									th:value="${session.userLogin.hoTen}">
+							</div>
+							<div class="form-group">
+								<label for="">Điện thoại</label> <input type="text"
+									th:value="${session.userLogin.sdt}">
+							</div>
+							<div class="form-group">
+								<label for="">Địa chỉ</label> <input type="text"
+									th:value="${session.userLogin.diaChi}">
+							</div>
+							<div class="form-group">
+								<label for="">Ghi chú</label>
+								<textarea name="" id="" cols="30" rows="5">Nội dung...</textarea>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="order-detail">
+						<div class="heading">
+							<h3>Chi tiết đặt hàng</h3>
+							<p>Hoá đơn thanh toán</p>
+						</div>
+						<div class="content">
+							<i class="far fa-list-alt"></i>
+							<div class="list-items">
+
+								<div class="item" th:each="item: ${items}">
+									<span>[[${item.soLuongMua}]] x [[${item.tenSP}]]</span> <span>[[${nf.format(item.donGia*item.soLuongMua)}]]₫</span>
+								</div>
+
+							</div>
+							<p>Thanh toán khi nhận hàng</p>
+							<div class="total">
+								<span>Tổng cộng:</span> <strong>[[${tongTien}]]₫</strong>
+							</div>
+							<button class="btn btn-primary">Đặt hàng</button>
+						</div>
+
+					</div>
+				</div>
+			</form>
+
+		</section>
+
+		<!-- --------xx--------- -->
+</body>
+</html>

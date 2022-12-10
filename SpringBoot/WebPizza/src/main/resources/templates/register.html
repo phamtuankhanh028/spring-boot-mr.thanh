@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-login.html}">
+<head>
+
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="register-page">
+			<div class="register-form">
+				<div class="logo">
+					<a th:href="@{/}"><img th:src="@{/images/logo.svg}" alt=""></a>
+				</div>
+				<form th:action="@{/user/saveOrUpdate}" th:method="post" th:object="${user}">
+					<div class="form-group">
+						<label for="name"><i class="fas fa-edit"></i></label> <input
+							type="text" id="name" th:field="*{taiKhoan}"  placeholder="Tài khoản">
+					</div>
+					<div class="form-group">
+						<label for="login-password"><i class="fas fa-lock"></i></label> <input
+							type="password" id="login-password" th:field="*{matKhau}" placeholder="Mật khẩu">
+					</div>
+					<div class="form-group">
+						<label for="name"><i class="fas fa-edit"></i></label> <input
+							type="text" id="name" th:field="*{hoTen}"  placeholder="Tên">
+					</div>
+					<div class="form-group">
+						<label for="phone"><i class="fas fa-phone"></i></label> <input
+							type="text" id="phone" th:field="*{sdt}" placeholder="Số điện thoại">
+					</div>
+					<div class="form-group">
+						<label for="home"><i class="fas fa-home"></i></label> <input
+							type="text" id="address" th:field="*{diaChi}"  placeholder="Địa chỉ">
+					</div>
+					<button class="btn-login">Đăng ký</button>
+				</form>
+				<span>Bạn đã có tài khoản? <a href="login.html">Đăng nhập</a></span>
+				<div class="coppyright">
+					<p>© 2021 Fast Food</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout.html}">
+<head>
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- ====   Search  ==== -->
+		<section class="page-heading">
+			<div class="slogan">
+				<h2>Lorem ipsum dolor sit amet!</h2>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+			</div>
+			<div class="search-box">
+				<form action="" th:action="@{/shop/page/1}">
+					<input type="text" placeholder="Tìm kiếm trong cửa hàng"  name="keyword" required th:value="${keyword}" />
+					<button type="submit">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
+			</div>
+		</section>
+		<!-- ----------xx------- -->
+		<!-- ====   Product ==== -->
+		<section class="shoppage-content">
+			<div class="icon">
+				<h3>Lọc</h3>
+				<span id="filter-toggle"><i class="fas fa-sliders-h"></i></span>
+			</div>
+			<div class="shoppage-filter">
+				<span id="close-filter"> <i class="fas fa-times"></i>
+				</span>
+				<h3>Lọc</h3>
+				<div class="filter-option ">
+					<div class="filter-option-heading active">
+						<h3>Sắp xếp</h3>
+						<i class="fas fa-chevron-down"></i>
+					</div>
+					<div class="filter-option-content">
+						<form action="" th:action="@{/shop/page/1}" >
+							<input type="hidden" name="keyword" required th:value="${keyword}"/>
+							<input type="hidden" name="idCategory" required th:value="${idCategory}"/>
+							<div class="form-group">
+								<input type="radio" name="sort" th:value="asc"> <label
+									for="">Giá thừ thấp đến cao</label>
+							</div>
+							<div class="form-group">
+								<input type="radio" name="sort" th:value="desc"> <label
+									for="">Giá từ cao đến thấp</label>
+							</div>
+							<button type="submit" class="btn">Thực hiện</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="shoppage-product">
+				<div class="collection">
+					<h2>Bộ sưu tập</h2>
+				
+					<div class="carousel owl-carousel owl-theme">
+						<div class="item card-product" th:each="category : ${categories}">  <!-- th:  để ngay div cần hiển thị -->
+							<a th:href="@{'/shop/page/1?idCategory='+${category.maLoai}}"><img th:src="@{'/images/'+${category.hinhAnh}}" alt=""></a>
+							<div class="title">
+								<h3>[[${category.ten}]]</h3>
+							</div>
+						</div>
+
+						
+					</div>
+				</div>
+				<div class="shoppage-banner">
+					<div class="banner-content">
+						<h3>Đặt hàng ngay để nhận nhiều ưu đãi!</h3>
+						<p>Miễn phí giao hàng cho 3 đơn hàng đầu tiên.</p>
+					</div>
+					<img src="images/motorbike.png" alt="">
+				</div>
+				<div class="products">
+					<h2>Danh sách sản phẩm</h2>
+
+					<div class="box">
+
+
+						<div class="card-product" th:each="product: ${products}">
+							<div class="card-img">
+								
+								<div class="div">
+									<a th:href="@{'/shop/product-detail/'+${product.maSP}}"><img th:src="@{'/images/'+${product.hinhAnh}}"></a>
+								</div>
+								
+								<span><i class="fas fa-star">4.5</i></span>
+							</div>
+							<div class="card-content">
+								<h4 th:text="${product.tenSP}"></h4>
+								<p class="price">Giá: [[${nf.format(product.donGia)}]]đ /
+									[[${product.donViTinh}]]</p>
+								<div class="card-btn">
+									<a th:href="@{'/shopping-cart/add/'+${product.maSP}}"><button class="btn btn-secondary">
+										<i class="fas fa-shopping-bag"></i>Thêm vào giỏ hàng
+									</button></a>
+									<button class="btn btn-favou">
+										<i class="far fa-heart"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="pagination">
+						<!-- Total item: [[${totalItems}]]------Page [[${currentPage}]] of
+						[[${totalPages}]] -->
+
+						
+						
+						<ul>
+							<li><a th:if="${currentPage > 1}"
+								th:href="@{'/shop/page/'+${currentPage - 1}}"><i
+									class="fas fa-angle-double-left"></i></a> <a
+								th:unless="${currentPage > 1}"><i
+									class="fas fa-angle-double-left"></i></a></li>
+									
+							<li th:each="i: ${#numbers.sequence(1, totalPages)}"><a
+								th:if="${i != currentPage}"
+								th:href="@{'/shop/page/'+${i}
+								+${keyword != null? '?keyword='+keyword: ''}
+								+${idCategory != null && keyword != null ? '&idCategory='+idCategory: ''}
+								+${idCategory != null && keyword == null ? '?idCategory='+idCategory: ''}
+								+${sort != null? '&sort='+sort: ''}}"
+								>[[${i}]]</a> 
+								
+								<span
+								style="color: blue; font-weight: bold; font-size: x-large;"
+								th:unless="${i != currentPage}">[[${i}]]</span></li>
+
+
+							<li><a th:if="${currentPage < totalPages}"
+								th:href="@{'/shop/page/'+${currentPage + 1}}"><i
+									class="fas fa-angle-double-right"></i></a> <a
+								th:unless="${currentPage < totalPages}"><i
+									class="fas fa-angle-double-right"></i></a></li>
+						</ul>
+						
+						
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- link /name/...  -->
+		<!-- ----------xx------- -->
+
+	</div>
+</body>
+</html>
